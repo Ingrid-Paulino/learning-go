@@ -5,7 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="495235a9-44f1-41f4-88d8-bc0e6bb2fcac" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/aplication-of-logs.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/aplication-of-logs.go" beforeDir="false" afterPath="$PROJECT_DIR$/aplication-of-logs.go" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -54,7 +55,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1669558358471</updated>
-      <workItem from="1669558360102" duration="4166000" />
+      <workItem from="1669558360102" duration="4862000" />
     </task>
     <servers />
   </component>
