@@ -6,42 +6,46 @@ package main
 import (
 	"fmt"
 	"net/http" //pacote que faz requisição web
-	//É importante saber que temos vários subdiretórios dentro do "net". Se quiséssemos fazer um envio de email poderíamos usar o "net/smtp".
-	"os" //pacote que comunica com o sistema operacional
+	"os"
 )
 
 func main() {
 	exibeIntroducao()
-	exibeMenu()
+	// Quando passo o for sem nada, sig. que esse for vai ficar em loop eternamente
+	// nessa aplicação para eu sair do programa preciso colocar a opção 0 para parar o loop
+	//No  Go nao tem while
+	for {
+		exibeMenu()
 
-	//var comando int
-	//comando = leComando()
-	//ou
-	comando := leComando()
+		//var comando int
+		//comando = leComando()
+		//ou
+		comando := leComando()
 
-	//if comando == 1 { //No GO condição sempre tem que retornar booleano (truer or false)
-	//	fmt.Println("Monitorando...")
-	//} else if comando == 2 {
-	//	fmt.Println("Exibindo Logs...")
-	//} else if comando == 0 {
-	//	fmt.Println("Saindo do programa...")
-	//} else {
-	//	fmt.Println("Não conheço este comando")
-	//}
+		//if comando == 1 { //No GO condição sempre tem que retornar booleano (truer or false)
+		//	fmt.Println("Monitorando...")
+		//} else if comando == 2 {
+		//	fmt.Println("Exibindo Logs...")
+		//} else if comando == 0 {
+		//	fmt.Println("Saindo do programa...")
+		//} else {
+		//	fmt.Println("Não conheço este comando")
+		//}
 
-	// ou
+		// ou
 
-	switch comando { //No GO não tem break
-	case 1:
-		iniciarMonitoramento()
-	case 2:
-		fmt.Println("Exibindo Logs...")
-	case 0:
-		fmt.Println("Saindo do programa...")
-		os.Exit(0) //retorna status 0, o codigo 0 informo para o sistema operacional que ele saiu com sucesso
-	default:
-		fmt.Println("Não conheço este comando")
-		os.Exit(-1) // -1 indico que teve algum problema para o sistema operacional na hora de sair o programa
+		switch comando { //No GO não tem break
+		case 1:
+			iniciarMonitoramento()
+		case 2:
+			fmt.Println("Exibindo Logs...")
+		case 0:
+			fmt.Println("Saindo do programa...")
+			os.Exit(0) //retorna status 0, o codigo 0 informo para o sistema operacional que ele saiu com sucesso
+		default:
+			fmt.Println("Não conheço este comando")
+			os.Exit(-1) // -1 indico que teve algum problema para o sistema operacional na hora de sair o programa
+		}
 	}
 }
 
@@ -77,5 +81,11 @@ func iniciarMonitoramento() {
 	site := "https://www.alura.com.br"
 	//resp, err := http.Get(site) //acessa o site //get retorna uma resposta=resp ou um erro=err
 	resp, _ := http.Get(site)
-	fmt.Println(resp)
+	//fmt.Println(resp)
+
+	if resp.StatusCode == 200 {
+		fmt.Println("Site:", site, "foi carregado com sucesso!")
+	} else {
+		fmt.Println("Site:", site, "está com problemas. Status Code:", resp.StatusCode)
+	}
 }
