@@ -1,7 +1,12 @@
+/*
+Essa aplicaçao monitora sites para ver se os mesmos estão online ou não
+*/
 package main
 
 import (
 	"fmt"
+	"net/http" //pacote que faz requisição web
+	//É importante saber que temos vários subdiretórios dentro do "net". Se quiséssemos fazer um envio de email poderíamos usar o "net/smtp".
 	"os" //pacote que comunica com o sistema operacional
 )
 
@@ -28,7 +33,7 @@ func main() {
 
 	switch comando { //No GO não tem break
 	case 1:
-		fmt.Println("Monitorando...")
+		iniciarMonitoramento()
 	case 2:
 		fmt.Println("Exibindo Logs...")
 	case 0:
@@ -65,4 +70,12 @@ func leComando() int { //int é o tipo do retorno da func
 	fmt.Println("O comando escolhido foi:", comandoLido)
 
 	return comandoLido
+}
+
+func iniciarMonitoramento() {
+	fmt.Println("Monitorando...")
+	site := "https://www.alura.com.br"
+	//resp, err := http.Get(site) //acessa o site //get retorna uma resposta=resp ou um erro=err
+	resp, _ := http.Get(site)
+	fmt.Println(resp)
 }
