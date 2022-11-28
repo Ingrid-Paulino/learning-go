@@ -176,7 +176,6 @@ func registraLog(site string, status bool) {
 }
 
 func imprimeLogs() {
-
 	arquivo, err := ioutil.ReadFile("aplication-logs/log.txt") //Le e retorna tudo que tem no arquivo
 
 	if err != nil {
