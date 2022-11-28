@@ -1,0 +1,55 @@
+Inicialização zero e nil
+Mesmo não provendo nenhum valor, o Go garante inicializar todas as variáveis,
+conforme abaixo:
+  //Valores por default
+    - bool = false
+    - int = 0
+    - float = 0
+    - string = ""
+    - struct = {}
+
+Em muitas linguagens existe uma maneira de denotar um ponteiro nulo que,
+essencialmente, não aponta para nenhum lugar. Por exemplo: em C é NULL,
+em Python é None e em java é null. Em Go, temos o nil.
+  Nil e Inferência:
+    package main
+
+    import (
+        "fmt"
+    )
+
+    func main() {
+        a := nil
+        fmt.Println(a)
+    }
+   Será que vai compilar?
+   Não, não vai. O compilador imprimirá o seguinte erro: use of untyped nil,
+   que significa uso não tipado do nil.
+
+  Nil com um tipo definido:
+    package main
+
+    import (
+        "fmt"
+    )
+
+    func main() {
+        var s *string = nil
+        fmt.Println(s)
+    }
+   Neste caso, o programa compila e retorna <nil> como esperado.
+
+  Comparando zero value:
+    package main
+
+    import (
+        "fmt"
+    )
+
+    func main() {
+        var f float64
+        var i int
+
+        fmt.Println(f==i)
+    }
+   Recebemos uma mensagem com um erro informando que os tipos são incompatíveis.
