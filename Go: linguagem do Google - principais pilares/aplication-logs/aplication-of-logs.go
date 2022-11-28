@@ -7,8 +7,10 @@ import (
 	"bufio" //possibilita ler linha a linha do arquivo
 	"fmt"
 	"io"
+	"io/ioutil"
 	"net/http" //pacote que faz requisição web
 	"os"       //conversa com o sistema operacional
+	"strconv"  //converte varios tipos para string
 	"strings"
 	"time"
 )
@@ -18,7 +20,8 @@ const deley = 5
 
 func main() {
 	exibeIntroducao()
-	leSitesDoArquivo()
+	//leSitesDoArquivo()
+	//registraLog("dfdfdgfdg", false)
 	for {
 		exibeMenu()
 		//var comando int
@@ -31,6 +34,7 @@ func main() {
 			iniciarMonitoramento()
 		case 2:
 			fmt.Println("Exibindo Logs...")
+			imprimeLogs()
 		case 0:
 			fmt.Println("Saindo do programa...")
 			os.Exit(0) //retorna status 0, o codigo 0 informo para o sistema operacional que ele saiu com sucesso
@@ -145,9 +149,39 @@ func testaSite(site string) {
 		fmt.Println("Ocorreu um erro:", err)
 	}
 	//fmt.Println(resp)
+
 	if resp.StatusCode == 200 {
 		fmt.Println("Site:", site, "foi carregado com sucesso!")
+		registraLog(site, true)
 	} else {
 		fmt.Println("Site:", site, "está com problemas. Status Code:", resp.StatusCode)
+		registraLog(site, false)
 	}
+}
+
+// restante do código omitido
+
+func registraLog(site string, status bool) {
+
+	arquivo, err := os.OpenFile("aplication-logs/log.txt", os.O_CREATE|os.O_RDWR|os.O_APPEND, 0666) //OpenFile: se o arquivo nao existir ele cria // os.O_APPEND: para nao sobescrever o conteudo que ja existe
+
+	if err != nil {
+		fmt.Println("Ocorreu um erro:", err)
+	}
+
+	arquivo.WriteString(time.Now().Format("02/01/2006 15:04:05") + site + " - online: " + strconv.FormatBool(status) + "\n") //escreve no arquivo log.txt // strconv.FormatBool(status): converte booleano para string
+
+	arquivo.Close()
+	//fmt.Println(arquivo)
+}
+
+func imprimeLogs() {
+
+	arquivo, err := ioutil.ReadFile("aplication-logs/log.txt") //Le e retorna tudo que tem no arquivo
+
+	if err != nil {
+		fmt.Println("Ocorreu um erro:", err)
+	}
+	// ioutil.ReadFile ja fecha o arquivo por isso nao é necessario fechar
+	fmt.Println(string(arquivo))
 }

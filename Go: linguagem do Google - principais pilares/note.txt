@@ -1,0 +1,2 @@
+DOC: Para formatar a data : https://go.dev/src/time/format.go
+DOC: Flags do  OpenFile*, também do pacote os* : https://pkg.go.dev/os#pkg-constants
