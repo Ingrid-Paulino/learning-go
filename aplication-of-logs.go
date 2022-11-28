@@ -7,32 +7,20 @@ import (
 	"fmt"
 	"net/http" //pacote que faz requisição web
 	"os"
+	"time"
 )
+
+const monitoramentos = 3
+const deley = 5
 
 func main() {
 	exibeIntroducao()
-	// Quando passo o for sem nada, sig. que esse for vai ficar em loop eternamente
-	// nessa aplicação para eu sair do programa preciso colocar a opção 0 para parar o loop
-	//No  Go nao tem while
 	for {
 		exibeMenu()
-
 		//var comando int
 		//comando = leComando()
 		//ou
 		comando := leComando()
-
-		//if comando == 1 { //No GO condição sempre tem que retornar booleano (truer or false)
-		//	fmt.Println("Monitorando...")
-		//} else if comando == 2 {
-		//	fmt.Println("Exibindo Logs...")
-		//} else if comando == 0 {
-		//	fmt.Println("Saindo do programa...")
-		//} else {
-		//	fmt.Println("Não conheço este comando")
-		//}
-
-		// ou
 
 		switch comando { //No GO não tem break
 		case 1:
@@ -72,17 +60,37 @@ func leComando() int { //int é o tipo do retorno da func
 	//& sig que oq o usuario digitar eu quero salvar na variavel comando
 	fmt.Println("O endereço da minha variavel comando é", &comandoLido)
 	fmt.Println("O comando escolhido foi:", comandoLido)
+	fmt.Println("")
 
 	return comandoLido
 }
 
 func iniciarMonitoramento() {
 	fmt.Println("Monitorando...")
-	site := "https://www.alura.com.br"
+	sites := []string{"https://random-status-code.herokuapp.com/",
+		"https://www.alura.com.br", "https://www.caelum.com.br"}
+
+	//Primeira forma
+	//site := "https://random-status-code.herokuapp.com/" //esse site retorna sempre um status code diferente
+	//site := "https://www.alura.com.br"
 	//resp, err := http.Get(site) //acessa o site //get retorna uma resposta=resp ou um erro=err
-	resp, _ := http.Get(site)
+	//resp, _ := http.Get(site)
 	//fmt.Println(resp)
 
+	//Segunda forma
+	for i := 0; i < monitoramentos; i++ { // testo 5 vezes
+		for i, site := range sites {
+			fmt.Println("Testando site", i, ":", site)
+			testaSite(site)
+		}
+		time.Sleep(deley * time.Second) // Para cada vez que o primeiro for rodar, 5 segundos será esperado
+		fmt.Println("")
+	}
+}
+
+func testaSite(site string) {
+	resp, _ := http.Get(site)
+	//fmt.Println(resp)
 	if resp.StatusCode == 200 {
 		fmt.Println("Site:", site, "foi carregado com sucesso!")
 	} else {
