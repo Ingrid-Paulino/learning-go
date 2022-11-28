@@ -4,9 +4,12 @@ Essa aplicaçao monitora sites para ver se os mesmos estão online ou não
 package main
 
 import (
+	"bufio" //possibilita ler linha a linha do arquivo
 	"fmt"
+	"io"
 	"net/http" //pacote que faz requisição web
-	"os"
+	"os"       //conversa com o sistema operacional
+	"strings"
 	"time"
 )
 
@@ -15,6 +18,7 @@ const deley = 5
 
 func main() {
 	exibeIntroducao()
+	leSitesDoArquivo()
 	for {
 		exibeMenu()
 		//var comando int
@@ -67,8 +71,10 @@ func leComando() int { //int é o tipo do retorno da func
 
 func iniciarMonitoramento() {
 	fmt.Println("Monitorando...")
-	sites := []string{"https://random-status-code.herokuapp.com/",
-		"https://www.alura.com.br", "https://www.caelum.com.br"}
+	//sites := []string{"https://random-status-code.herokuapp.com/",
+	//	"https://www.alura.com.br", "https://www.caelum.com.br"}
+
+	sites := leSitesDoArquivo()
 
 	//Primeira forma
 	//site := "https://random-status-code.herokuapp.com/" //esse site retorna sempre um status code diferente
@@ -88,8 +94,56 @@ func iniciarMonitoramento() {
 	}
 }
 
+func leSitesDoArquivo() []string {
+	var sites []string
+	basePath := "aplication-logs/sites.txt"
+	//Forma 1 de ler arquivo
+	//arquivo, err := os.Open(basePath) //abre um arquivo, e retorna de forma pura oq tem la dentro sem nenhuma conversão
+	//Forma 2 de ler arquivo
+	//arquivo, err := ioutil.ReadFile(basePath) // abre e retorna o arquivo em um array de bites, porem é mais facil de converter esse arquivo para algo que possamos entender
+
+	arquivo, err := os.Open(basePath)
+
+	//nil == null
+	if err != nil {
+		fmt.Println("Ocorreu um erro:", err)
+	}
+
+	//Forma 2
+	//fmt.Println(string(arquivo)) //converte a função ReadFile para algo entendivel // mostra o conteudo do arquivo de uma vez
+
+	//Forma 3 de ler arquivo
+	leitor := bufio.NewReader(arquivo) //possibilita ler linha a linha
+	//leitor tem algumas funçoes que ajuda a passer pelo arquivo sites.txt
+	//linha, err := leitor.ReadString('\n') //Ele vai ler ate a quebra de linha
+	//if err != nil {
+	//	fmt.Println("Ocorreu um erro:", err)
+	//}
+	//fmt.Println(linha) //retorna só a primeira linha
+
+	//para o bufio ler todas as linhas
+	for {
+		linha, err := leitor.ReadString('\n') //Ele vai ler ate a quebra de linha
+		linha = strings.TrimSpace(linha)      // tira os espaços entre cada linha retornada
+		sites = append(sites, linha)
+		//fmt.Println(linha)
+		if err == io.EOF { //esse erro e lançado quando chega ao final do arquivo, pois nao tem mais linha para ler
+			break // se chegr no final do arquivo, sai do loop for
+		}
+
+	}
+
+	//fmt.Println(sites)
+	arquivo.Close() //boa pratica //antes de eu encerrar, eu preciso fecha arquivo do sistema operacional para nao dar problema se outro programa quiser ler o mesmo arquivo
+	return sites
+}
+
 func testaSite(site string) {
-	resp, _ := http.Get(site)
+	//resp, _ := http.Get(site)
+	resp, err := http.Get(site)
+	if err != nil {
+		fmt.Println("Ocorreu um erro:", err)
+	}
 	//fmt.Println(resp)
 	if resp.StatusCode == 200 {
 		fmt.Println("Site:", site, "foi carregado com sucesso!")
