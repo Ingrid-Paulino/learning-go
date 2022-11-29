@@ -2,7 +2,7 @@ package main
 
 import (
 	"fmt"
-	"learning-go/Go: Orientacao a Objetos/gerencia contas corrente/contas"
+	"learning-go/Go: Orientacao a Objetos/gerencia-contas-corrente/contas"
 )
 
 // conta verificarConta: Verifica se no parametro que eu passo tem a função sacar

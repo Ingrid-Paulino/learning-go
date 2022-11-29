@@ -1,6 +1,6 @@
 package contas
 
-import "learning-go/Go: Orientacao a Objetos/gerencia contas corrente/clientes"
+import "learning-go/Go: Orientacao a Objetos/gerencia-contas-corrente/clientes"
 
 type ContaPoupanca struct {
 	Titular                              clientes.Titular

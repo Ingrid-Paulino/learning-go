@@ -2,7 +2,7 @@ package main
 
 import (
 	"fmt"
-	"learning-go/Go: Orientacao a Objetos/gerencia contas corrente/contas"
+	"learning-go/Go: Orientacao a Objetos/gerencia-contas-corrente/contas"
 )
 
 func main() {

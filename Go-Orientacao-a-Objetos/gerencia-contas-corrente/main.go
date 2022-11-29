@@ -2,7 +2,7 @@ package main
 
 import (
 	"fmt"
-	"learning-go/Go: Orientacao a Objetos/gerencia contas corrente/contas"
+	"learning-go/Go: Orientacao a Objetos/gerencia-contas-corrente/contas"
 )
 
 func main() {
@@ -14,15 +14,16 @@ func main() {
 
 	//fmt.Println(contaDaSilvia.saldo)
 
-	fmt.Println(contaDaSilvia.Sacar(400)) // c na função sacar é contaDaSilva
-	//fmt.Println(contaDaSilvia.saldo)
-
 	//Forma 1
 	fmt.Println(contaDaSilvia.Depositar(2000))
 	//fmt.Println(contaDaSilvia.saldo)
 
 	//Forma 2
 	//fmt.Println(contaDaSilvia.saldo)
-	status, valor := contaDaSilvia.Depositar(2000)
-	fmt.Println(status, valor)
+	//status, valor := contaDaSilvia.Depositar(2000)
+	//fmt.Println(status, valor)
+
+	fmt.Println(contaDaSilvia.Sacar(400)) // c na função sacar é contaDaSilva
+	//fmt.Println(contaDaSilvia.saldo)
+
 }
