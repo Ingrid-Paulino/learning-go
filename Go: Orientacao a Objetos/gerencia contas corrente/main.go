@@ -25,14 +25,4 @@ func main() {
 	//fmt.Println(contaDaSilvia.saldo)
 	status, valor := contaDaSilvia.Depositar(2000)
 	fmt.Println(status, valor)
-
-	//Transferencia
-	//contaDaSilvia2 := contas.ContaCorrente{Titular: "Silvia", Saldo: 300}
-	//contaDoGustavo2 := contas.ContaCorrente{Titular: "Gustavo", Saldo: 100}
-
-	//status2 := contaDaSilvia2.Transferir(200, &contaDoGustavo2) //&contaDoGustavo: & indica que é para essa conta que o dinheiro sera transferido
-
-	//fmt.Println(status2)
-	//fmt.Println(contaDaSilvia2)
-	//fmt.Println(contaDoGustavo2)
 }
