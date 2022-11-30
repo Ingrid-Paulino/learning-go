@@ -7,3 +7,5 @@ Comandos necessarios para instalar e mexer com o GORM
 
 Pacote gorilla/mux -- https://github.com/gorilla/mux#install
 Implementa um roteador de requisições e respostas para corresponder às solicitações de entrada ao seu respectivo manipulador ou handler.
+
+go get github.com/gorilla/handlers traz o modulo para a aplicacao

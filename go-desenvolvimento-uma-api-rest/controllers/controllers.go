@@ -14,6 +14,7 @@ func Home(w http.ResponseWriter, r *http.Request) {
 }
 
 func TodasPersonalidades(w http.ResponseWriter, r *http.Request) {
+	//w.Header().Set("Content-type", "application/json") // indica que o tipo da resposta que tem que ser retornado é um json, sem essa linha a res. nao vem certinha
 	var personalidades []models.Personalidade
 	database.DB.Find(&personalidades) // p é um array de personalidades	json.NewEncoder(w).Encode(models.Personalidades)
 	json.NewEncoder(w).Encode(personalidades)
