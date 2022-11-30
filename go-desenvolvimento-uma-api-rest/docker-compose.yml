@@ -1,0 +1,38 @@
+version: '3.9'
+services:
+  db:
+    image: mysql:8.0.21
+    container_name: db-go
+    ports:
+      - 3002:3306
+    environment:
+      - MYSQL_ROOT_PASSWORD=123456
+    restart: 'always'
+    platform: linux/amd64
+    volumes:
+      - ./migration/docker-database-initial.sql:/docker-entrypoint-initdb.d/docker-database-initial.sql
+
+### Conexao com o postgres
+ # version: '3'
+#services:
+ # postgres:
+  #  image: "postgres"
+  #  environment:
+   #   - POSTGRES_USER=root
+    #  - POSTGRES_PASSWORD=root
+     # - POSTGRES_DB=root
+   # ports:
+    #  - "5432:5432"
+    #volumes:
+    #  - ./migration/docker-database-initial.sql:/docker-entrypoint-initdb.d/docker-database-initial.sql
+
+  ### Se u foce usar o postgres eu poderia locar no site pgadmin passando o email e a senha - la eu tenho acesso a um banco virtual
+#pgadmin-compose:
+  #  image: dpage/pgadmin4
+  #  environment:
+   #   PGADMIN_DEFAULT_EMAIL: "ingridpaulino1012@gmail.com"
+   #   PGADMIN_DEFAULT_PASSWORD: "123456"
+   # ports:
+   #   - "54321:80"
+   # depends_on:
+    #  - db
