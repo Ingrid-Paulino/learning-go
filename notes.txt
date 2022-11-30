@@ -1,1 +1,2 @@
+
 cd $GOPATH --> abre a pastinha do GO

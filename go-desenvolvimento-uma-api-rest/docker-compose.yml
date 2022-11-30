@@ -10,7 +10,7 @@ services:
     restart: 'always'
     platform: linux/amd64
     volumes:
-      - ./migration/docker-database-initial.sql:/docker-entrypoint-initdb.d/docker-database-initial.sql
+      - ./go-desenvolvimento-uma-api-rest/migration/docker-database-inition.sql:/var/lib/mysql
 
 ### Conexao com o postgres
  # version: '3'

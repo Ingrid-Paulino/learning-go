@@ -1,0 +1,9 @@
+ORM do GO: GORM --> https://gorm.io/  https://gorm.io/docs/
+// https://gorm.io/docs/connecting_to_the_database.html -- conecxao com o BD
+Comandos necessarios para instalar e mexer com o GORM
+  - go get -u gorm.io/gorm
+  - go get gorm.io/driver/mysql
+
+
+Pacote gorilla/mux -- https://github.com/gorilla/mux#install
+Implementa um roteador de requisições e respostas para corresponder às solicitações de entrada ao seu respectivo manipulador ou handler.
